@@ -33,17 +33,17 @@ function Search() {
   };
 
   return (
-    <div className=" flex gap-2">
-      <input
-        type="text"
-        placeholder="Search products..."
-        value={search}
-        onChange={handleChange}
-        className="md:w-full w-25 pl-10 pr-4 py-2 rounded-md bg-gray-100 text-black"
-      />
-      
-      <button type="submit" className="bg-yellow-400 p-2 rounded-lg"><FiSearch /></button>
-    </div>
+    <div className="relative ">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={search}
+              onChange={(e)=>setSearch(e.target.value)}
+              className="md:w-full pl-10 pr-4 py-2  w-25 rounded-md bg-gray-100 text-black"
+            />
+    
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          </div>
   );
 }
 

@@ -1,40 +1,117 @@
 // import { useParams } from 'next/navigation'
 
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import Image from 'next/image'
-import React, { use } from 'react'
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import WishlistButton from "@/components/WishListButton";
+import Image from "next/image";
+import React from "react";
+import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
- function page({params}) {
-   const {id}= use(params)
-  
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+async function page({ params }) {
+  // const [liked, setLiked] = useState(false)
+  const { id } = await params;
+  const res = await fetch(`${baseUrl}/api/products/${id}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    throw new Error("Product not found");
+  }
+
+  const product = await res.json();
+
+  function handleRating(rate, count) {
+    const fullStars = Math.floor(rate);
+    const hasHalfStar = rate % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    return (
+      <div className="flex items-center gap-1 my-2">
+        {[...Array(fullStars)].map((_, i) => (
+          <FaStar key={`full-${i}`} className="text-yellow-400" />
+        ))}
+
+        {hasHalfStar && <FaStarHalfAlt className="text-yellow-400" />}
+
+        {[...Array(emptyStars)].map((_, i) => (
+          <FaRegStar key={`empty-${i}`} className="text-gray-300" />
+        ))}
+
+        <span className="text-gray-600 text-sm ml-1">{rate}</span>
+
+        <span className="text-gray-600 text-sm ml-1">({count} reviews)</span>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Header/>
-        <div className='max-w-7xl mx-auto p-3 py-5 gap-2  '>
-
-        <div className="grid grid-cols-2">
-          <div className=' bg-yellow-300   '>
-             <Image 
-             src={"/image/women1.png"}
-             alt={"image"}
-             width={300}
-             height={300}
-          
-             className='object-contain mx-auto'
-             />
-             
+      <Header />
+      <div className="max-w-6xl mx-auto p-3 py-5  ">
+        <div className="grid md:grid-cols-2 gap-4 grid-cols-1 ">
+          <div className="relative bg-[#cdcdcd] rounded-lg h-[390px] w-full flex items-center justify-center">
+            <Image
+              src={product?.image}
+              alt="image"
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
-          <div className='bg-red-400 border-8 '>
-             <div className='bg-gray-600 p-2'>
-              <p className='text-black bg-red-200'>product Category</p>
-             </div>
+          <div className="rounded-lg ">
+            <div className="">
+              <small
+                style={{ backgroundColor: "#cdcdcd" }}
+                className="text-black  rounded-md p-1 px-3"
+              >
+                {product?.category ? product?.category : "other categories"}
+              </small>
+            </div>
+            <h1 className="text-2xl font-bold my-2 text-black">
+              {product?.title}
+            </h1>
+            <h1 className="text-black font-bold my-2">${product?.price}</h1>
+            <div className=" ">
+              {handleRating(product?.rating?.rate, product?.rating?.count)}
+            </div>
+            <div
+              className="rounded-lg h-0.5 w-full my-2 "
+              style={{ backgroundColor: "#cdcdcd" }}
+            ></div>
+            <div>
+              <h2 className="text-black font-semibold my-3">Description</h2>
+              <p className="text-black line-clamp-3  my-3">
+                {product?.description}
+              </p>
+            </div>
+            <div
+              className="rounded-lg h-0.5 w-full my-3"
+              style={{ backgroundColor: "#cdcdcd" }}
+            ></div>
+            <div className="grid grid-cols-2  gap-2 my-3">
+              <button
+                type="button"
+                className="bg-black text-white p-2 px-3 rounded-md  cursor-pointer "
+              >
+                {" "}
+                ADD TO CART
+              </button>
+              <button
+                type="button"
+                className="bg-black text-white p-2 px-3 rounded-md cursor-pointer"
+              >
+                {" "}
+                BUY NOW
+              </button>
+            </div>
+            <WishlistButton/>
           </div>
         </div>
-        </div>
-        <Footer/>
+      </div>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default page
+export default page;
