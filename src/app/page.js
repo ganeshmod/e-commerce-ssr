@@ -6,8 +6,11 @@ import Footer from "@/components/Footer";
 
 export default async function Home({ searchParams }) {
   // Step 4.1: Extract search params
+  console.log( typeof searchParams);
+  console.log("chacha",searchParams)
   
   const paramss = await searchParams;
+    console.log("chacha1",paramss)
   
   const search = paramss.search || "";
   

@@ -24,7 +24,9 @@ function Search() {
 
     if (value.trim()) {
       params.set("search", value.trim());
-    } else {
+    } 
+    
+    else {
       params.delete("search");
     }
 
@@ -38,7 +40,7 @@ function Search() {
               type="text"
               placeholder="Search products..."
               value={search}
-              onChange={(e)=>setSearch(e.target.value)}
+              onChange={handleChange}
               className="md:w-full pl-10 pr-4 py-2  w-25 rounded-md bg-gray-100 text-black"
             />
     

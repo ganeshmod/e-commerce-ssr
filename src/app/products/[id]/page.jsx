@@ -1,11 +1,13 @@
 // import { useParams } from 'next/navigation'
 
+import BuyNow from "@/components/BuyNow";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import WishlistButton from "@/components/WishListButton";
 import Image from "next/image";
 import React from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import AddCartButton from "@/components/AddCartButton";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
@@ -90,20 +92,8 @@ async function page({ params }) {
               style={{ backgroundColor: "#cdcdcd" }}
             ></div>
             <div className="grid grid-cols-2  gap-2 my-3">
-              <button
-                type="button"
-                className="bg-black text-white p-2 px-3 rounded-md  cursor-pointer "
-              >
-                {" "}
-                ADD TO CART
-              </button>
-              <button
-                type="button"
-                className="bg-black text-white p-2 px-3 rounded-md cursor-pointer"
-              >
-                {" "}
-                BUY NOW
-              </button>
+              <AddCartButton/>
+             <BuyNow/>
             </div>
             <WishlistButton/>
           </div>

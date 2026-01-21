@@ -1,6 +1,9 @@
 import products from "@/data/product";
 export  async function GET(request){
+  console.log(typeof request);
+  console.log("hello",request)
 const url = new URL(request.url);
+console.log(url)
 
 
     const category=url.searchParams.get("category");
