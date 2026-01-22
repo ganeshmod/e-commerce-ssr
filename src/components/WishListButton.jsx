@@ -17,7 +17,7 @@ export default function WishlistButton() {
       )  : (
         <div className="flex gap-2">
 
-            <FaRegHeart className="text-gray-400 text-2xl" />
+            <FaRegHeart className="text-gray-400 text-2xl cursor-pointer" />
             <span className="text-black">WishList</span>
         </div>
       )}

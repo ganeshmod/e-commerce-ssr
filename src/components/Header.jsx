@@ -3,9 +3,11 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { FiShoppingCart } from "react-icons/fi";
-import Search from "./Search";
+
 import { usePathname } from "next/navigation";
 import CartIcon from "./CartIcon";
+import dynamic from "next/dynamic";
+const Search=dynamic(()=>import("./Search"))
 
 function Header() {
   const pathname = usePathname();

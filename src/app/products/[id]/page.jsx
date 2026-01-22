@@ -1,4 +1,3 @@
-// import { useParams } from 'next/navigation'
 
 import BuyNow from "@/components/BuyNow";
 import Footer from "@/components/Footer";
@@ -12,7 +11,6 @@ import AddCartButton from "@/components/AddCartButton";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 async function page({ params }) {
-  // const [liked, setLiked] = useState(false)
   const { id } = await params;
   const res = await fetch(`${baseUrl}/api/products/${id}`, {
     cache: "no-store",
@@ -92,7 +90,8 @@ async function page({ params }) {
               style={{ backgroundColor: "#cdcdcd" }}
             ></div>
             <div className="grid grid-cols-2  gap-2 my-3">
-              <AddCartButton/>
+              {/* ye data hum redux me bhejenge oroduct wala  */}
+              <AddCartButton product={product}/>
              <BuyNow/>
             </div>
             <WishlistButton/>

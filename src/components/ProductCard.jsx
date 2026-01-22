@@ -3,6 +3,8 @@ import Link from "next/link";
 import React from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
+
+
 function ProductCard({ products }) {
 
   

@@ -1,8 +1,9 @@
-import Header from "@/components/Header";
-import ProductCard from "@/components/ProductCard";
-import Filter from "@/components/Filter";
-import products from "@/data/product";
-import Footer from "@/components/Footer";
+import dynamic from "next/dynamic"
+import products from "@/data/product"
+const Filter=dynamic(()=>import("@/components/Filter"))
+const Header =dynamic(()=>import("@/components/Header"))
+const ProductCard =dynamic(()=>import("@/components/ProductCard"))
+const Footer =dynamic(()=>import("@/components/Footer"))
 
 export default async function Home({ searchParams }) {
   // Step 4.1: Extract search params

@@ -1,26 +1,27 @@
-"use client"
-import { addCount } from "@/app/redux/slice";
-import React,{useState} from "react";
+"use client";
+import { addToCart } from "@/app/redux/slice";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
+function AddCartButton({ product }) {
+  const [flag, setFlag] = useState(true);
+  const dispatch = useDispatch();
 
-function AddCartButton() {
-  const[count,setCount]=useState(0);
-  const dispatch=useDispatch();
-  function handleClick(){
-    setCount((prev)=>prev+1)
-    dispatch(addCount(count))
+  function handleAddToCart() {
+    if (!flag) return;        
+
+    dispatch(addToCart(product)); 
+    setFlag(false);                
   }
- 
 
   return (
     <button
-      onClick={handleClick}
-      type="button"
-      className="bg-black text-white p-2 px-3 rounded-md  cursor-pointer "
+      onClick={handleAddToCart}
+      disabled={!flag}   
+      className={`p-2 px-3 rounded-md text-white cursor-pointer
+        ${flag ? "bg-black" : "bg-gray-400 cursor-not-allowed"}`}
     >
-      {" "}
-      ADD TO CART
+      {flag ? "ADD TO CART" : "ADDED"}
     </button>
   );
 }
