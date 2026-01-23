@@ -2,14 +2,19 @@
 const { createSlice ,current} = require("@reduxjs/toolkit");
 
 const initialState={
- users:JSON.parse(localStorage.getItem("users")) || [],
+ users: [],
 
 }
 const Slice=createSlice({
     name:"AddSlice",
     initialState,
     reducers:{
+          hydrateUsers: (state, action) => {
+      state.users = action.payload;
+    },
         addToCart:(state,action)=>{
+
+            console.log(action);
             const product=action.payload;
             
             const data={
@@ -20,16 +25,21 @@ const Slice=createSlice({
                 price:action.payload.price,
                 rating:action.payload.rating,
                 count:1,
+                itemQuantity:1,
+                tax:2,
+                
+
             }
+           
            const existingData= state.users.find((item)=>item.id===product.id);
+           console.log(existingData)
             if(existingData){
                 existingData.count+=1;
             }
             else{
 
                 state.users.push(data)
-                const localData= JSON.stringify(current(state.users));
-                localStorage.setItem("users",localData);
+                
 
             }
             
@@ -46,8 +56,43 @@ const Slice=createSlice({
              state.users=data;
              
 
+        },
+        addQuantity:(state,action)=>{
+            console.log(state)
+            console.log("action",action)
+            const id =action.payload;
+            console.log(id)
+            
+            const existingData= state.users.find((item)=>item.id===id);
+            console.log(existingData)
+            if(existingData){
+                console.log(existingData.itemQuantity)
+                existingData.itemQuantity+=1;
+               console.log(existingData.itemQuantity)
+            }
+
+
+        },
+        reduceQuantity:(state,action)=>{
+            console.log(state)
+            console.log("action",action)
+            const id =action.payload;
+            console.log(id)
+            
+            const existingData= state.users.find((item)=>item.id===id);
+            console.log(existingData)
+            if(existingData){
+                if(existingData.itemQuantity>1){
+
+                    existingData.itemQuantity-=1;
+                }
+               console.log(existingData.itemQuantity)
+            }
+
+
         }
+        
     }
 })
-export const {addToCart,removeFromCart}=Slice.actions;
+export const {addToCart,removeFromCart,hydrateUsers,addQuantity,reduceQuantity}=Slice.actions;
 export default Slice.reducer;

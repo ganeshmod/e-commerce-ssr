@@ -9,7 +9,7 @@ import { GoPlusCircle } from "react-icons/go";
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
 import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa'
-import { removeFromCart } from '../redux/slice'
+import { addQuantity, addToCart, reduceQuantity, removeFromCart } from '../redux/slice'
 import dynamic from 'next/dynamic'
 
 const DeleteModal =dynamic(()=>import('@/components/DeleteModal'))
@@ -19,15 +19,38 @@ const DeleteModal =dynamic(()=>import('@/components/DeleteModal'))
 function page() {
  const router =useRouter()
  const dispatch=useDispatch();
+
  
   const [openModal, setOpenModal] = useState(false);
 const [deleteId, setDeleteId] = useState(null);
 const cart = useSelector((state) => state.users);
+
+
+function handleSubtotal() {
+  return cart.reduce((total, item) => {
+    return total + item.price * item.itemQuantity;
+  }, 0.00);
+}
+function handleTaxtotal() {
+  return cart.reduce((total, item) => {
+    return total + item.tax * item.itemQuantity;
+  }, 0.00);
+}
+var shippingCharge=50;
+function Total(){
+  
+   return handleSubtotal()-handleTaxtotal()-shippingCharge;
+}
+
+
+
+
 function handleDelete() {
   dispatch(removeFromCart(deleteId)); // ✅ Redux update
   setOpenModal(false);                // ✅ Modal close
   setDeleteId(null);                  // ✅ Reset
 }
+
  function handleRating(rate, count) {
      const fullStars = Math.floor(rate);
      const hasHalfStar = rate % 1 >= 0.5;
@@ -76,7 +99,7 @@ function handleDelete() {
   {/* Cart Item */}
   { cart.length==0 ?<h2  className='text-bold text-4xl  text-center pt-5 text-black'>
     No Items In the Cart 
-  </h2>:
+  </h2>: 
     cart.map((item,index)=>(
         <div className="border rounded-md p-4 mb-4" key={index}>
     <div className="flex flex-col sm:flex-row gap-4">
@@ -111,15 +134,17 @@ function handleDelete() {
       <div className="flex flex-col items-end justify-between">
         <p className="font-semibold text-gray-800">${item?.price}</p>
 
-        <div className="flex items-center gap-3 mt-3">
-          <button className="border-2 rounded px-2 py-1">
+        <div className="flex items-center gap-3 mt-3 ">
+          <button className="border-2 rounded px-2 py-1 cursor-pointer" onClick={()=>dispatch(reduceQuantity(item?.id))} >
             <FiMinusCircle />
           </button>
 
-          <span className="font-medium  text-black">2</span>
+          <span className="font-medium  text-black">{item?.itemQuantity}</span>
 
-          <button className="border-2 rounded px-2 py-1">
-            <GoPlusCircle />
+          <button className="border-2 rounded px-2 py-1 cursor-pointer"
+          onClick={()=>dispatch(addQuantity(item?.id))} >
+           
+                 <GoPlusCircle /> 
           </button>
         </div>
 
@@ -144,6 +169,7 @@ function handleDelete() {
 </div>
 
 
+
 <div className="col-span-12 lg:col-span-4">
   <div className="border rounded-md p-4 bg-white sticky top-24">
     <h2 className="text-lg font-semibold mb-4  text-black">Order Summary</h2>
@@ -151,22 +177,22 @@ function handleDelete() {
     <div className="space-y-2 text-sm">
       <div className="flex justify-between">
         <span className='text-black'>Subtotal</span>
-        <span className='text-black'> $798.04</span>
+        <span className='text-black'> ${handleSubtotal()}</span>
       </div>
       <div className="flex justify-between">
         <span className='text-black'>Shipping</span>
-        <span className='text-black'>$0.00</span>
+        <span className='text-black'>${shippingCharge}</span>
       </div>
       <div className="flex justify-between">
         <span className='text-black'>Tax</span>
-        <span className='text-black'>$63.84</span>
+      <span className='text-black'>${handleTaxtotal()} </span>
       </div>
 
       <hr />
 
       <div className="flex justify-between font-semibold">
         <span className='text-black'>Total</span>
-        <span className='text-black'>$861.88</span>
+        <span className='text-black'>${Total()}</span>
       </div>
     </div>
 
