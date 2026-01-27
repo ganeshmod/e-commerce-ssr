@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { useSelector } from "react-redux";

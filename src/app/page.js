@@ -2,16 +2,17 @@ import dynamic from "next/dynamic"
 import products from "@/data/product"
 const Filter=dynamic(()=>import("@/components/Filter"))
 const Header =dynamic(()=>import("@/components/Header"))
-const ProductCard =dynamic(()=>import("@/components/ProductCard"))
+const ProductCard = dynamic(
+  () => import("@/components/ProductCard")
+ 
+);
 const Footer =dynamic(()=>import("@/components/Footer"))
 
 export default async function Home({ searchParams }) {
   // Step 4.1: Extract search params
   console.log( typeof searchParams);
-  console.log("chacha",searchParams)
-  
   const paramss = await searchParams;
-    console.log("chacha1",paramss)
+    
   
   const search = paramss.search || "";
   
@@ -39,7 +40,9 @@ export default async function Home({ searchParams }) {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    }
+
+  );
     
     if (!response.ok) {
       throw new Error('Failed to fetch products');

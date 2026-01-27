@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { motion } from "motion/react";
+
 
 function ProductCard({ products }) {
   function handleRating(rate, count) {

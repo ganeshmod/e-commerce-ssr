@@ -101,7 +101,9 @@ function handleDelete() {
     No Items In the Cart 
   </h2>: 
     cart.map((item,index)=>(
-        <div className="border rounded-md p-4 mb-4" key={index}>
+      
+        <div className="border rounded-md p-4 mb-4 cursor-pointer" key={index}
+      onClick={() => router.push(`/products/${item?.id}`)}>
     <div className="flex flex-col sm:flex-row gap-4">
       
       {/* Image */}
@@ -135,22 +137,35 @@ function handleDelete() {
         <p className="font-semibold text-gray-800">${item?.price}</p>
 
         <div className="flex items-center gap-3 mt-3 ">
-          <button className="border-2 rounded px-2 py-1 cursor-pointer" onClick={()=>dispatch(reduceQuantity(item?.id))} >
-            <FiMinusCircle />
-          </button>
+          <button
+  className="border-2 rounded px-2 py-1 cursor-pointer"
+  onClick={(e) => {
+    e.stopPropagation();
+    dispatch(reduceQuantity(item?.id));
+  }}
+>
+  <FiMinusCircle className="text-gray-400" />
+</button>
 
           <span className="font-medium  text-black">{item?.itemQuantity}</span>
 
           <button className="border-2 rounded px-2 py-1 cursor-pointer"
-          onClick={()=>dispatch(addQuantity(item?.id))} >
+          onClick={(e)=>
+          {
+            e.stopPropagation();
+            dispatch(addQuantity(item?.id))
+          }
+            
+          } >
            
-                 <GoPlusCircle /> 
+                 <GoPlusCircle className='text-gray-400' /> 
           </button>
         </div>
 
         <button
   className="text-sm text-red-500 mt-2 cursor-pointer"
-  onClick={() => {
+  onClick={(e) => {
+   e.stopPropagation()
     setDeleteId(item.id);   // ✅ id save
     setOpenModal(true);     // ✅ modal open
   }}

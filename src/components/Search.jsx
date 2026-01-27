@@ -8,7 +8,6 @@ function Search() {
   const [search, setSearch] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
-
   // Initialize search from URL (on refresh / back navigation)
   useEffect(() => {
     const searchQuery = searchParams.get("search") || "";
