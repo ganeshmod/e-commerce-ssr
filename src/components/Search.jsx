@@ -5,33 +5,26 @@ import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 
 function Search() {
-  const [search, setSearch] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
-  // Initialize search from URL (on refresh / back navigation)
-  useEffect(() => {
-    const searchQuery = searchParams.get("search") || "";
-    setSearch(searchQuery);
-  }, [searchParams]);
 
-  // Update URL immediately on each change
+
   const handleChange = (e) => {
     const value = e.target.value;
-    setSearch(value);
-
     const params = new URLSearchParams(searchParams.toString());
-
     if (value.trim()) {
       params.set("search", value.trim());
     } 
-    
     else {
       params.delete("search");
     }
 
-    // Preserve other params (category, sort)
+    // to preserve other params  like category and  sort
     router.push(`/?${params.toString()}`);
   };
+  //how back naviagtion or on refresh works here ...as the url changes on back navigation or on refresh
+  //  then it directly read the data from the url and component re render 
+   const search=searchParams.get("search")||""
 
   return (
     <div className="relative ">

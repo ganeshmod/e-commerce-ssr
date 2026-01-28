@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 function CartIcon() {
   const router = useRouter();
-  const selector = useSelector((state) => state.users.length);
+  const selectorCount = useSelector((state) => state.users.length);
   return (
     <>
       <div className="relative inline-block">
@@ -15,11 +15,10 @@ function CartIcon() {
           onClick={() => router.push("/shopingcart")}
         />
 
-        <span
-          className="absolute -top-3 -right-2 bg-red-500 text-white text-xs font-bold 
+        <span className="absolute -top-3 -right-2 bg-red-500 text-white text-xs font-bold 
                    w-5 h-5 flex items-center justify-center rounded-full"
         >
-          {selector}
+          {selectorCount}
         </span>
       </div>
     </>

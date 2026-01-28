@@ -3,18 +3,19 @@ import React from "react";
 import { FaTrash } from "react-icons/fa";
 
 export default function DeleteModal({ isOpen, onClose, onDelete }) {
+  console.log(isOpen)
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       
-      {/* Overlay */}
+      
       <div
         onClick={onClose}
         className="absolute inset-0 bg-black/40 backdrop-blur-sm"
       />
 
-      {/* Modal */}
+     
       <div className="relative bg-white rounded-xl p-6 w-[90%] max-w-sm shadow-lg">
         
         <div className="flex justify-center mb-4">

@@ -11,7 +11,7 @@ export default function WishlistButton() {
     <button onClick={() => setLiked(!liked)} className="my-2">
       {liked ? (
         <div className="flex gap-2 ">
-        <FaHeart className="text-black text-2xl" />
+        <FaHeart className="text-black text-2xl cursor-pointer" />
         <span className="text-black">WishList</span>
         </div>
       )  : (

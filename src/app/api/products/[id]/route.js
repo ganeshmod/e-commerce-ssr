@@ -4,7 +4,7 @@ export async function GET(request, { params }) {
   const resolvedParams = await params;
   const id = resolvedParams.id;
   const product = products.find((item) => item.id === parseInt(id));
-  console.log(product)
+   console.log(product)
   
   if (!product) {
     return Response.json(

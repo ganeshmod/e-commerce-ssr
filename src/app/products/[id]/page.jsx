@@ -1,4 +1,3 @@
-
 import BuyNow from "@/components/BuyNow";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -50,13 +49,14 @@ async function page({ params }) {
       <Header />
       <div className="max-w-6xl mx-auto p-3 py-5  ">
         <div className="grid md:grid-cols-2 gap-4 grid-cols-1 ">
-          <div className="relative bg-[#cdcdcd] rounded-lg h-[390px] w-full flex items-center justify-center">
+          <div className="relative bg-[#d7d7d7] rounded-lg h-[390px] w-full overflow-hidden flex items-center justify-center">
             <Image
               src={product?.image}
               alt="image"
-              fill
+              width={260}
+              height={260}
               className="object-contain"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
             />
           </div>
           <div className="rounded-lg ">
@@ -76,8 +76,8 @@ async function page({ params }) {
               {handleRating(product?.rating?.rate, product?.rating?.count)}
             </div>
             <div
-              className="rounded-lg h-0.5 w-full my-2 "
-              style={{ backgroundColor: "#cdcdcd" }}
+              className="w-full h-[2px] bg-gray-300 my-2 "
+              // style={{ backgroundColor: "#cdcdcd" }}
             ></div>
             <div>
               <h2 className="text-black font-semibold my-3">Description</h2>
@@ -86,15 +86,15 @@ async function page({ params }) {
               </p>
             </div>
             <div
-              className="rounded-lg h-0.5 w-full my-3"
-              style={{ backgroundColor: "#cdcdcd" }}
+              className="w-full h-[1.5px] bg-gray-300 my-2 "
+              // style={{ backgroundColor: "#cdcdcd" }}
             ></div>
             <div className="grid grid-cols-2  gap-2 my-3">
               {/* ye data hum redux me bhejenge oroduct wala  */}
-              <AddCartButton product={product}/>
-             <BuyNow/>
+              <AddCartButton product={product} />
+              <BuyNow />
             </div>
-            <WishlistButton/>
+            <WishlistButton />
           </div>
         </div>
       </div>

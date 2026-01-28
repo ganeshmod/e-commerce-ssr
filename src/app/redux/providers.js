@@ -1,5 +1,5 @@
 "use client";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { store } from "./store";
 import CartPersistor from "@/components/CartPersistor";
 import CartHydrator from "@/components/CartHydrator";

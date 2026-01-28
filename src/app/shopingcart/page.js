@@ -13,15 +13,12 @@ import { addQuantity, addToCart, reduceQuantity, removeFromCart } from '../redux
 import dynamic from 'next/dynamic'
 
 const DeleteModal =dynamic(()=>import('@/components/DeleteModal'))
-
-
-
 function page() {
  const router =useRouter()
  const dispatch=useDispatch();
 
  
-  const [openModal, setOpenModal] = useState(false);
+const [openModal, setOpenModal] = useState(false);
 const [deleteId, setDeleteId] = useState(null);
 const cart = useSelector((state) => state.users);
 
@@ -39,16 +36,16 @@ function handleTaxtotal() {
 var shippingCharge=50;
 function Total(){
   
-   return handleSubtotal()-handleTaxtotal()-shippingCharge;
+   return handleSubtotal()+handleTaxtotal()+shippingCharge;
 }
 
 
 
 
 function handleDelete() {
-  dispatch(removeFromCart(deleteId)); // ✅ Redux update
-  setOpenModal(false);                // ✅ Modal close
-  setDeleteId(null);                  // ✅ Reset
+  dispatch(removeFromCart(deleteId)); 
+  setOpenModal(false);                
+  setDeleteId(null);                  
 }
 
  function handleRating(rate, count) {
@@ -106,7 +103,7 @@ function handleDelete() {
       onClick={() => router.push(`/products/${item?.id}`)}>
     <div className="flex flex-col sm:flex-row gap-4">
       
-      {/* Image */}
+      
       <div className="w-20 h-20 border rounded-md flex items-center justify-center">
         <Image
           src={item?.image}
@@ -116,8 +113,6 @@ function handleDelete() {
           className="object-cover"
         />
       </div>
-
-      {/* Product Details */}
       <div className="flex-1">
         <p className="text-sm font-medium text-gray-800 line-clamp-1">
          {item?.title}
@@ -132,7 +127,7 @@ function handleDelete() {
         </div>
       </div>
 
-      {/* Price + Quantity */}
+      
       <div className="flex flex-col items-end justify-between">
         <p className="font-semibold text-gray-800">${item?.price}</p>
 

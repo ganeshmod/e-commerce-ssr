@@ -8,25 +8,21 @@ const ProductCard = dynamic(
 );
 const Footer =dynamic(()=>import("@/components/Footer"))
 
-export default async function Home({ searchParams }) {
-  // Step 4.1: Extract search params
-  console.log( typeof searchParams);
+export default  async  function Home({searchParams}) {
+  //get the query string form the search params and call the api based on the available data ...
   const paramss = await searchParams;
-    
+  console.log(paramss)  
   
   const search = paramss.search || "";
   
   const category = paramss.category || "";
   const sort = paramss.sort || "";
 
-  // Step 4.2: Build query string for API call
+  //  Build query string for API call
   const params = new URLSearchParams();
   if (search) params.set('search', search);
   if (category) params.set('category', category);
   if (sort) params.set('sort', sort);
-
-  // Step 4.3: Call your fake backend API (server-side)
-  // In Next.js, you can use absolute URL for server-side fetch
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const apiUrl = `${baseUrl}/api/products?${params.toString()}`;
   
@@ -34,12 +30,7 @@ export default async function Home({ searchParams }) {
   
   try {
     const response = await fetch(apiUrl, {
-      // Important: no-store ensures fresh data on each request
       cache: 'no-store',
-      // For server-side fetch in Next.js 13+, you might need headers
-      headers: {
-        'Content-Type': 'application/json',
-      },
     }
 
   );
@@ -51,7 +42,7 @@ export default async function Home({ searchParams }) {
     filteredProducts = await response.json();
   } catch (error) {
     console.error('Error fetching products:', error);
-    // Fallback: import products directly if API fails
+// for fallback
     const products = (await import("@/data/product")).default;
     filteredProducts = products;
   }
@@ -59,11 +50,7 @@ export default async function Home({ searchParams }) {
   return (
     <>
       <Header />
-      {/* Step 4.4: Add Filter component */}
       <Filter />
-      
-      
-      {/* Step 4.5: Display products or empty state */}
       {filteredProducts.length > 0 ? (
         <ProductCard products={filteredProducts} />
       ) : (
@@ -73,8 +60,6 @@ export default async function Home({ searchParams }) {
           </p>
         </div>
       )}
-      
-      {/* Footer */}
       <Footer/>
     </>
   );

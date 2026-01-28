@@ -1,8 +1,9 @@
 'use client';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react'
 
 function Filter() {
+ 
      const router = useRouter();
   const searchParams = useSearchParams();
     function handleSortChange(e){

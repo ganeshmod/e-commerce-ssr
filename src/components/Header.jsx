@@ -19,7 +19,9 @@ function Header() {
       <div className="max-w-7xl h-auto  mx-auto p-3 py-5  rounded-sm flex justify-between items-center border-b-2 border-grey-500">
         <div>
           < motion.h2 
-          animate={{ rotate: 360 }}
+          initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 0.5 }}
           className="md:text-3xl  sm:text-2xl text-lg text-black font-semibold">
             {
           hideHeaderName?" Shopping Cart":"Ecommerce Store"
