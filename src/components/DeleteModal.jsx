@@ -3,7 +3,6 @@ import React from "react";
 import { FaTrash } from "react-icons/fa";
 
 export default function DeleteModal({ isOpen, onClose, onDelete }) {
-  console.log(isOpen)
   if (!isOpen) return null;
 
   return (

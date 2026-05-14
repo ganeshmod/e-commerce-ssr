@@ -3,6 +3,7 @@ const { createSlice} = require("@reduxjs/toolkit");
 
 const initialState={
  users: [],
+ cartHydrated: false,
 
 }
 const Slice=createSlice({
@@ -10,8 +11,8 @@ const Slice=createSlice({
     initialState,
     reducers:{
           hydrateUsers: (state, action) => {
-            console.log(state)
       state.users = action.payload;
+      state.cartHydrated = true;
     },
         addToCart:(state,action)=>{
 

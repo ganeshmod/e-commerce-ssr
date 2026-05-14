@@ -45,8 +45,8 @@ function Filter() {
        >
         
           <option value="all" className="text-black">All </option>
-          <option value="men's clothing"className="text-black" >Men's Clothing</option>
-          <option value="women's clothing"className="text-black">Women's Clothing</option>
+          <option value="men's clothing"className="text-black" >Men&apos;s Clothing</option>
+          <option value="women's clothing"className="text-black">Women&apos;s Clothing</option>
           <option value="jewelery"className="text-black">Jewelery</option>
           <option value="electronics"className="text-black">Electronics</option>
       </select>

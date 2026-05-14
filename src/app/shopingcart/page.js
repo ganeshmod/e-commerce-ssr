@@ -13,7 +13,7 @@ import { addQuantity, addToCart, reduceQuantity, removeFromCart } from '../redux
 import dynamic from 'next/dynamic'
 
 const DeleteModal =dynamic(()=>import('@/components/DeleteModal'))
-function page() {
+function ShoppingCartPage() {
  const router =useRouter()
  const dispatch=useDispatch();
 
@@ -234,4 +234,4 @@ function handleDelete() {
   )
 }
 
-export default page
+export default ShoppingCartPage

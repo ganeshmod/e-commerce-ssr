@@ -7,11 +7,17 @@ export default function CartHydrator() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    let storedUsers = [];
+
+    try {
+      const savedUsers = localStorage.getItem("users");
+      storedUsers = savedUsers ? JSON.parse(savedUsers) : [];
+    } catch {
+      storedUsers = [];
+    }
 
     dispatch(hydrateUsers(storedUsers));
-  }, []);
-  //[]
+  }, [dispatch]);
 
   return null;
 }

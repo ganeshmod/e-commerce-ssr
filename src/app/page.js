@@ -1,17 +1,13 @@
-import dynamic from "next/dynamic"
+import { Suspense } from "react"
 import products from "@/data/product"
-const Filter=dynamic(()=>import("@/components/Filter"))
-const Header =dynamic(()=>import("@/components/Header"))
-const ProductCard = dynamic(
-  () => import("@/components/ProductCard")
- 
-);
-const Footer =dynamic(()=>import("@/components/Footer"))
+import Filter from "@/components/Filter"
+import Header from "@/components/Header"
+import ProductCard from "@/components/ProductCard"
+import Footer from "@/components/Footer"
 
 export default  async  function Home({searchParams}) {
   //get the query string form the search params and call the api based on the available data ...
   const paramss = await searchParams;
-  console.log(paramss)  
   
   const search = paramss.search || "";
   
@@ -49,8 +45,10 @@ export default  async  function Home({searchParams}) {
 
   return (
     <>
-      <Header />
-      <Filter />
+      <Suspense fallback={null}>
+        <Header />
+        <Filter />
+      </Suspense>
       {filteredProducts.length > 0 ? (
         <ProductCard products={filteredProducts} />
       ) : (
