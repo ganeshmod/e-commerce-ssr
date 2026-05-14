@@ -7,11 +7,12 @@ import React from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import AddCartButton from "@/components/AddCartButton";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
 async function page({ params }) {
   const { id } = await params;
-  const res = await fetch(`${baseUrl}/api/products/${id}`, {
+  const res = await fetch(new URL(`/api/products/${id}`, baseUrl).toString(), {
     cache: "no-store",
   });
   if (!res.ok) {
