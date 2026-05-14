@@ -4,22 +4,18 @@ import Header from "@/components/Header";
 import WishlistButton from "@/components/WishListButton";
 import Image from "next/image";
 import React from "react";
+import { notFound } from "next/navigation";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import AddCartButton from "@/components/AddCartButton";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+import products from "@/data/product";
 
 async function page({ params }) {
   const { id } = await params;
-  const res = await fetch(new URL(`/api/products/${id}`, baseUrl).toString(), {
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    throw new Error("Product not found");
-  }
+  const product = products.find((item) => item.id === parseInt(id, 10));
 
-  const product = await res.json();
+  if (!product) {
+    notFound();
+  }
 
   function handleRating(rate, count) {
     const fullStars = Math.floor(rate);
