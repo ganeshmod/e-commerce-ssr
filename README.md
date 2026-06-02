@@ -74,9 +74,7 @@ http://localhost:3000
 * Built reusable and scalable React components.
 * Ensured responsive design across desktop, tablet, and mobile devices.
 
-## 📸 Screenshots
 
-Add screenshots of the application here.
 
 ## 👨‍💻 Developer
 
